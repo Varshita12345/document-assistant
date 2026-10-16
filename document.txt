@@ -1,0 +1,9 @@
+Our college library is open from 9 AM to 6 PM.
+
+Students must carry their college ID card when entering the library.
+
+Books can be borrowed for a maximum period of 14 days.
+
+Students can borrow up to 3 books at a time.
+
+Late returns may result in a fine.
