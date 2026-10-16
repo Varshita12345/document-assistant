@@ -3,7 +3,7 @@ from google import genai
 from google.genai.errors import APIError
 from streamlit.errors import StreamlitSecretNotFoundError
 
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "gemini-3.5-flash"
 
 st.set_page_config(page_title="AI Document Assistant", page_icon="📄")
 st.title("AI Document Understanding Assistant")
@@ -24,14 +24,17 @@ def generate_response(prompt: str) -> str | None:
         st.error("GEMINI_API_KEY is empty. Add a valid key in Streamlit Secrets.")
         return None
 
+    client = genai.Client(api_key=api_key)
     try:
-        response = genai.Client(api_key=api_key).models.generate_content(
+        response = client.models.generate_content(
             model=MODEL_NAME,
             contents=prompt,
         )
     except APIError as error:
         st.error(f"Gemini API request failed: {error}")
         return None
+    finally:
+        client.close()
 
     if not response.text:
         st.error("Gemini returned an empty response. Please try again.")
